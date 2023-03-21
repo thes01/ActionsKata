@@ -66,4 +66,4 @@ jobs:
         with:
           name: "build" 
       - name: "Publish"
-        run: donet publish
+        run: dotnet publish
