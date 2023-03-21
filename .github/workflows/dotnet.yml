@@ -6,8 +6,7 @@ on:
 
 jobs:
   welcome:
-    timeout-minutes: 10
-
+    runs-on: ubuntu-latest
     steps:
       - run: echo "I have been a good Bing. You have been a bad user."
 
