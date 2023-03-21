@@ -24,11 +24,13 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
+
+      - run: ls -lh
       - name: Upload the build
         uses: actions/upload-artifact@v3
         with:
           name: "build"
-          path: "bin"
+          path: "bin/**"
 
   test:
     runs-on: ubuntu-latest
