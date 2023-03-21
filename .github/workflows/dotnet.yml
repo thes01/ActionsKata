@@ -20,7 +20,31 @@ jobs:
           dotnet-version: '6.0.x'
       - name: Install dependencies
         run: dotnet restore
-      # - name: Build
-      #   run: dotnet build --configuration Release --no-restore
-      # - name: Test
-      #   run: dotnet test --no-restore --verbosity normal
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Upload the build
+        uses: actions/upload-artifact@v3
+        with:
+          name: "build"
+          path: "bin"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+      - name: "Download build artifacts"
+        uses: actions/download-artifact@v3
+        with:
+          name: "build" 
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "published"
